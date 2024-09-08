@@ -5,6 +5,8 @@ import {
   DialogContent,
   DialogActions,
   TextField,
+  Alert,
+  Snackbar,
 } from "@mui/material";
 import "./App.css";
 import Logo from "./assets/logo.svg";
@@ -18,6 +20,7 @@ import { Analytics } from "@vercel/analytics/react";
 function App() {
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState<string | null>(null);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -50,7 +53,7 @@ function App() {
           email: [...emailData, email],
         });
       }
-      console.log("Email submitted successfully");
+      setSubmitted("Email submitted successfully!");
     } catch (error) {
       console.error("Error submitting email:", error);
     }
@@ -135,6 +138,18 @@ function App() {
           <Button onClick={handleSubmit}>Submit</Button>
         </DialogActions>
       </Dialog>
+      {submitted && (
+        <Snackbar
+          open={Boolean(submitted)}
+          autoHideDuration={3000}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          onClose={() => setSubmitted(null)}
+        >
+          <Alert onClose={() => setSubmitted(null)} severity="success">
+            {submitted || "An error occurred."}
+          </Alert>
+        </Snackbar>
+      )}
     </>
   );
 }
