@@ -13,6 +13,7 @@ import "./index.css";
 import { useEffect, useState } from "react";
 import { db } from "./Firebase";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -60,6 +61,7 @@ function App() {
 
   return (
     <>
+      <Analytics />
       <header className="bg-gray-200 flex justify-between items-center p-2">
         <div>
           <a href="/">
